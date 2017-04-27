@@ -1,0 +1,22 @@
+FROM centos:latest
+RUN yum update -y && \
+	yum install epel-release -y && \
+	yum -y install http://rdoproject.org/repos/openstack-mitaka/rdo-release-mitaka.rpm && \
+	rpm -Uvh http://tesora-dbaas.tesora.com/tesora-release/tesora-dbaas-enterprise-main-1.9-0.x86_64.rpm && \
+	yum update -y && \
+	yum upgrade -y && \
+	yum install python-pip -y && \
+	pip install --upgrade pip && \
+	pip install --upgrade --user awscli && \
+	curl -O http://demo2.strato/install-client.sh && \
+	bash ./install-client.sh http://demo2.strato && \
+	yum install s3cmd -y && \
+	yum install nano -y && \
+	yum install -y tesora-dbaas tesora-dbaas-client && \
+	yum install openssh-clients -y && \
+	yum install openvpn -y && \
+	pip install boto3 && \
+	pip install awscli-plugin-endpoint &&\
+	yum install less -y &&\
+	yum clean all
+CMD /bin/bash
